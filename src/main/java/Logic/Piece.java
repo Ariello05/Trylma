@@ -1,4 +1,4 @@
-package Other;
+package Logic;
 
 import javafx.scene.paint.Color;
 

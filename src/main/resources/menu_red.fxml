@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: #20120F;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MenuOptionController">
+   <children>
+      <AnchorPane layoutX="323.0" layoutY="29.0" opacity="0.96" prefHeight="242.0" prefWidth="234.0" style="-fx-background-color: #9C2B27;">
+         <children>
+            <Text layoutX="11.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Nick" wrappingWidth="61.13671875" />
+            <TextField fx:id="playerNick" layoutX="71.0" layoutY="58.0" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #BC4B47;" />
+            <Button fx:id="connectButton" layoutX="28.0" layoutY="189.0" mnemonicParsing="false" onAction="#launchBoard" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #20120F;" text="Connect" textFill="WHITE" />
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="19.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Explore chinese checkers" wrappingWidth="196.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Text>
+            <Text layoutX="16.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Avaible games:" wrappingWidth="109.13671875" />
+            <Button fx:id="setNewButton" layoutX="125.0" layoutY="189.0" mnemonicParsing="false" onAction="#setUpServer" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: #20120F;" text="Set up new" textFill="WHITE" />
+            <ChoiceBox fx:id="availableGames" layoutX="15.0" layoutY="144.0" prefHeight="33.0" prefWidth="204.0" style="-fx-background-color: #BC4B47;" />
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="181.0" fitWidth="227.0" layoutX="58.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/checkers.jpg" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="78.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trylma" wrappingWidth="141.0">
+         <font>
+            <Font name="Castellar" size="28.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

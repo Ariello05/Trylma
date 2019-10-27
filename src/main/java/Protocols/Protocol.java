@@ -10,7 +10,7 @@ package Protocols;
         * */
 public class Protocol {
 
-    public enum ClientToServerType {MOVE, EXIT};
-    public enum ServerToClientType {WELCOME, PLAYER_MOVED, MESSAGE};
+    public enum ClientToServerType {MOVE, EXIT}
+    public enum ServerToClientType {WELCOME, PLAYER_MOVED, MESSAGE, YOUR_TURN, YOUR_INDEX}
 
 }

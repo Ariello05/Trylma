@@ -1,19 +1,21 @@
-package Other;
+package Logic;
 
+import GUI.Main;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
 public class Board {
 
-    /** Other.Board data srtucture */
+    /** Logic.Board data srtucture */
     private Latticing<Piece> latticeBoard;
     /** Array of Players */
-    private Color[] players;//TODO: Combine this players with server
-    /** Other.Board radius */
+    private Color[] players;
+    /** Logic.Board radius */
     private int radius;
     /** Win Locations */
     ArrayList<ArrayList<HexCell<Piece>>> winLocs;
+
 
     public Board(int radius, Color[] players) {
         if (radius < 2) throw new IllegalArgumentException();
@@ -28,19 +30,54 @@ public class Board {
             winLocs.add(new ArrayList<HexCell<Piece>>());
         }
 
-        createCenter();
-        createHomes();
+        createCenter(latticeBoard);
+        createHomes(latticeBoard);
+    }
+
+    /**
+     * Creates new latticeBoard and fills it
+     */
+    public void regenerateBoard(){
+        latticeBoard = new Latticing<Piece>();
+
+        createCenter(latticeBoard);
+        createHomes(latticeBoard);
+    }
+
+    /**
+     *
+     * @param latticeBoard lattice to be filled with standard pieces
+     */
+    public void populateLattice(Latticing<Piece> latticeBoard){
+        createCenter(latticeBoard);
+        createHomes(latticeBoard);
+    }
+
+    /**
+     *
+     * @param latticeBoard new logic for Board
+     */
+    public void setNewLatticeBoard(Latticing<Piece> latticeBoard){
+        this.latticeBoard = latticeBoard;
+    }
+
+    /**
+     *
+     * @return used Latticing
+     */
+    public Latticing<Piece> getLatticeBoard(){
+        return latticeBoard;
     }
 
     /**
      * Creates center area of the board
      *
      */
-    private void createCenter() {
-        for (int x = -1 * (radius); x <= radius - 1; x++) {
+    private void createCenter(Latticing<Piece> lattice) {
+        for (int x = -1 * (radius-1); x <= radius - 1; x++) {
             for (int y = -1 * (radius - 1); y <= radius - 1; y++) {
                 if (-1 * (x + y) >= -1 * (radius - 1) && -1 * (x + y) <= radius - 1) {
-                    latticeBoard.insert(new HexCell<Piece>(null, x, y, -1 * (x + y)));
+                    lattice.insert(new HexCell<Piece>(null, x, y, -1 * (x + y)));
                 }
             }
         }
@@ -50,7 +87,7 @@ public class Board {
      * Creates triangle areas of the board
      *
      */
-    private void createHomes() {
+    private void createHomes(Latticing<Piece> lattice) {
 
         /** x */
         for(int x = radius; x <= 2*(radius-1); x++) {
@@ -58,10 +95,10 @@ public class Board {
                 if(players.length == 6) {
                     HexCell<Piece> n = new HexCell<Piece>(new Piece(players[5]), x, -1*(x+z), z);
                     winLocs.get(4).add(n);
-                    latticeBoard.insert(n);
+                    lattice.insert(n);
                 }
                 else
-                    latticeBoard.insert(new HexCell<Piece>(null, x, -1*(x+z), z));
+                    lattice.insert(new HexCell<Piece>(null, x, -1*(x+z), z));
             }
         }
     /** -x */
@@ -70,10 +107,10 @@ public class Board {
                 if(players.length == 6) {
                     HexCell<Piece> n = new HexCell<Piece>(new Piece(players[4]), x, -1*(x+z), z);
                     winLocs.get(5).add(n);
-                    latticeBoard.insert(n);
+                    lattice.insert(n);
                 }
                 else
-                    latticeBoard.insert(new HexCell<Piece>(null, x, -1*(x+z), z));
+                    lattice.insert(new HexCell<Piece>(null, x, -1*(x+z), z));
             }
         }
         /** y */
@@ -82,10 +119,10 @@ public class Board {
                 if(players.length != 2) {
                     HexCell<Piece> n = new HexCell<Piece>(new Piece(players[3]), x, y, -1*(x+y));
                     winLocs.get(2).add(n);
-                    latticeBoard.insert(n);
+                    lattice.insert(n);
                 }
                 else
-                    latticeBoard.insert(new HexCell<Piece>(null, x, y, -1*(x+y)));
+                    lattice.insert(new HexCell<Piece>(null, x, y, -1*(x+y)));
             }
         }
         /** -y */
@@ -94,10 +131,10 @@ public class Board {
                 if(players.length != 2) {
                     HexCell<Piece> n = new HexCell<Piece>(new Piece(players[2]), x, y, -1*(x+y));
                     winLocs.get(3).add(n);
-                    latticeBoard.insert(n);
+                    lattice.insert(n);
                 }
                 else
-                    latticeBoard.insert(new HexCell<Piece>(null, x, y, -1*(x+y)));
+                    lattice.insert(new HexCell<Piece>(null, x, y, -1*(x+y)));
             }
         }
         /** z */
@@ -105,7 +142,7 @@ public class Board {
             for(int y = -1*(radius-1); y < -1*Math.abs(z-radius); y++) {
                 HexCell<Piece> n = new HexCell<Piece>(new Piece(players[1]), -1*(y+z), y, z);
                 winLocs.get(0).add(n);
-                latticeBoard.insert(n);
+                lattice.insert(n);
             }
         }
         /** -z */
@@ -113,14 +150,53 @@ public class Board {
             for(int y = radius-1; y > Math.abs(z+radius); y--) {
                 HexCell<Piece> n = new HexCell<Piece>(new Piece(players[0]), -1*(y+z), y, z);
                 winLocs.get(1).add(n);
-                latticeBoard.insert(n);
+                lattice.insert(n);
             }
         }
     }
 
-    public boolean move(HexCell<Piece> src, HexCell<Piece> dst) {
-        if(!isValidMove(src, dst)) return false;
+    public boolean moveFromString(String src, String dst) {
+        HexCell<Piece> a,b;
 
+        try {
+            int beg = 1;
+            int end = src.indexOf(',');
+            int x = Integer.parseInt(src.substring(beg, end));
+            beg = end + 1;
+            end = src.indexOf(',', beg);
+            int y = Integer.parseInt(src.substring(beg, end));
+            beg = end + 1;
+            end = src.indexOf(')', beg);
+            int z = Integer.parseInt(src.substring(beg, end));
+            a = getLatticeBoard().get(x, y, z);
+
+            beg = 1;
+            end = dst.indexOf(',');
+            x = Integer.parseInt(dst.substring(beg, end));
+            beg = end + 1;
+            end = dst.indexOf(',', beg);
+            y = Integer.parseInt(dst.substring(beg, end));
+            beg = end + 1;
+            end = dst.indexOf(')', beg);
+            z = Integer.parseInt(dst.substring(beg, end));
+            b = getLatticeBoard().get(x, y, z);
+
+
+            return this.move(a,b);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Zla konwersja!");
+        }
+
+        System.out.println("Couldn`t move despite server message");
+        return false;
+
+    }
+
+    public boolean move(HexCell<Piece> src, HexCell<Piece> dst) {
+
+        if(!isValidMove(src, dst)) return false;
+        //System.out.println("BOARD A MOVE WAS MADE FROM " + src + " TO: " + dst + "WITHING CLIENT: " + main.getClient().getIndex());
         latticeBoard.flipNodes(src, dst);
         return true;
     }
@@ -247,7 +323,7 @@ public class Board {
      */
     public Point<HexCell<Piece>> getNearestOpenPoint(Point<HexCell<Piece>> point) {
 
-        /** Error Handling: Other.Point and its key must be non-null */
+        /** Error Handling: Logic.Point and its key must be non-null */
         if(point == null || point.getKey() == null) throw new IllegalArgumentException();
 
         int shortestDistance = radius*2;

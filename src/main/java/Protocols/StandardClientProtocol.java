@@ -18,8 +18,8 @@ public class StandardClientProtocol implements  ClientProtocol {
 
     @Override
     public Protocol.ServerToClientType interpretServerMessage(String message) {
-        if(message.startsWith("MESSAGE_FROM_SERVER::")) {
-            String starts = "MESSAGE_FROM_SERVER::";
+        if(message.startsWith("MESSAGE_FROM_SERVER: ")) {
+            String starts = "MESSAGE_FROM_SERVER: ";
             this.message = message.substring(starts.length());
             return Protocol.ServerToClientType.MESSAGE;
         }
@@ -28,8 +28,16 @@ public class StandardClientProtocol implements  ClientProtocol {
             return Protocol.ServerToClientType.WELCOME;
         }
         else if(message.startsWith("MOVE: ")){
-            this.message = message.substring(5);
+            this.message = message.substring(6);
             return Protocol.ServerToClientType.PLAYER_MOVED;
+        }
+        else if(message.startsWith("YOUR_TURN")){
+            this.message = message;
+            return Protocol.ServerToClientType.YOUR_TURN;
+        }
+        else if(message.startsWith("YOUR_INDEX: ")){
+            this.message = message.substring(12);
+            return  Protocol.ServerToClientType.YOUR_INDEX;
         }
         this.message = "Unkown message";
         return Protocol.ServerToClientType.MESSAGE;

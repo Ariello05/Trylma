@@ -2,6 +2,9 @@ package Other;
 
 import java.io.BufferedReader;
 
+/**
+ * Listens for server input
+ */
 public class ServerListener extends Thread{
     private Client client;
     private BufferedReader in;

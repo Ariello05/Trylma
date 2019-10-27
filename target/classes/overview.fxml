@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="550" prefWidth="500"  fx:controller="Controllers.Observer"
+          xmlns:fx="http://javafx.com/fxml" >
+
+    <!--
+    <children>
+        <Button fx:id="drawButton" alignment="CENTER_LEFT" contentDisplay="CENTER" mnemonicParsing="false"
+                onAction="#drawStuff" text="draw" textAlignment="CENTER" />
+    </children>
+    -->
+
+</AnchorPane>

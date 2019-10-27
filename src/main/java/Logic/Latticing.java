@@ -1,9 +1,12 @@
-package Other;
+package Logic;
+
+import Logic.Dimension;
+import Logic.HexCell;
 
 import java.util.ArrayList;
 
 /**
- * A Other.Latticing is represented by a Cube-Coordinate Hex board. It is a list of
+ * A Logic.Latticing is represented by a Cube-Coordinate Hex board. It is a list of
  * HexCells that are given a unique coordinate (x,y,z) to identify location and
  * determine neighboring nodes.
  *
@@ -180,7 +183,7 @@ public class Latticing<K> {
 
     /**
      * Returns a list of all nodes in the lattice
-     * @return list of nodes in Other.Latticing
+     * @return list of nodes in Logic.Latticing
      */
     public ArrayList<HexCell<K>> getAllNodes() {
         return nodes;

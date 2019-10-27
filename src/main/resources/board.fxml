@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="borderPane" maxHeight="780" maxWidth="800" minHeight="780" minWidth="800"  prefHeight="780" prefWidth="800"  fx:controller="Controllers.Controller"
+          xmlns:fx="http://javafx.com/fxml" >
+    <style>
+        -fx-background-image: url("wood.jpg");
+        -fx-padding: 10;
+        -fx-border-style: solid inside;
+        -fx-border-width: 2;
+        -fx-border-insets: 5;
+        -fx-border-radius: 5;
+        -fx-border-color: blue;
+    </style>
+    <!--
+    <children>
+        <Button fx:id="drawButton" alignment="CENTER_LEFT" contentDisplay="CENTER" mnemonicParsing="false"
+                onAction="#drawStuff" text="draw" textAlignment="CENTER" />
+    </children>
+    -->
+
+</BorderPane>

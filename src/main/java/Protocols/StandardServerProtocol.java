@@ -46,8 +46,11 @@ public class StandardServerProtocol implements  ServerProtocol {
                 return "MOVE: " + message;
             case MESSAGE:
                 return "MESSAGE_FROM_SERVER: " + message;
-
-                default:
+            case YOUR_TURN:
+                return "YOUR_TURN";
+            case YOUR_INDEX:
+                return "YOUR_INDEX: " + message;
+            default:
                     return "NULL";
         }
     }
