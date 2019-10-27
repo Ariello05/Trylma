@@ -2,7 +2,6 @@ import Logic.*;
 
 import Logic.Dimension;
 import Logic.Point;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import javafx.scene.paint.Color;
 import org.junit.Test;
 import org.mockito.Mock;

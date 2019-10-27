@@ -3,7 +3,6 @@ import Logic.*;
 import Logic.Dimension;
 import Logic.Point;
 import Other.ServerCreator;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import javafx.scene.paint.Color;
 import org.junit.Test;
 import org.mockito.Matchers;

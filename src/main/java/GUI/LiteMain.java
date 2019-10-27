@@ -76,7 +76,7 @@ public class LiteMain extends Application {
         }
     }
 
-    public static void initMain() {
+    public static void smain(String[] args) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
